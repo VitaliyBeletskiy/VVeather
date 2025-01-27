@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,17 +17,15 @@ import vibe.weather.AppScreens
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    Scaffold(
-
-    ) { paddingValues ->
+    Scaffold { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues).fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Button(
-                onClick = { navController.navigate(AppScreens.SearchScreen.name) },
-            ) { Text("to Search") }
+                onClick = { navController.navigate(AppScreens.LocationsScreen.name) },
+            ) { Text("to Locations") }
         }
     }
 }

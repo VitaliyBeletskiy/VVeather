@@ -1,4 +1,4 @@
-package vibe.weather.ui.screens.search
+package vibe.weather.ui.screens.locations
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -8,14 +8,15 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,30 +28,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import vibe.weather.R
 import vibe.weather.utils.logD
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(navController: NavController) {
+fun LocationsScreen(navigateBack: () -> Unit) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.app_name),
-                        fontWeight = FontWeight.Bold,
-                    )
-                },
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "Close",
-                        modifier = Modifier.padding(horizontal = 12.dp),
-                    )
-                },
+            LocationsTopAppBar(
+                navigateBack = navigateBack,
+                modifier = Modifier.fillMaxWidth(),
             )
         },
     ) { paddingValues ->
@@ -60,6 +49,32 @@ fun SearchScreen(navController: NavController) {
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LocationsTopAppBar(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = stringResource(R.string.locations),
+                fontWeight = FontWeight.Bold,
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = navigateBack) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                )
+            }
+        },
+        modifier = modifier,
+    )
 }
 
 @Composable
@@ -100,4 +115,10 @@ private fun SearchField(onSearch: (String) -> Unit = {}) {
             .fillMaxWidth()
             .padding(start = 10.dp, end = 10.dp),
     )
+}
+
+@Preview
+@Composable
+private fun LocationsScreenPreview() {
+    LocationsScreen(navigateBack = {})
 }

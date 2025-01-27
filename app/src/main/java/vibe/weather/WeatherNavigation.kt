@@ -5,11 +5,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import vibe.weather.ui.screens.home.HomeScreen
-import vibe.weather.ui.screens.search.SearchScreen
+import vibe.weather.ui.screens.locations.LocationsScreen
 
 enum class AppScreens {
     HomeScreen,
-    SearchScreen,
+    LocationsScreen,
 }
 
 @Composable
@@ -20,8 +20,10 @@ fun WeatherNavigation() {
             HomeScreen(navController = navController)
         }
 
-        composable(AppScreens.SearchScreen.name) {
-            SearchScreen(navController = navController)
+        composable(AppScreens.LocationsScreen.name) {
+            LocationsScreen {
+                navController.popBackStack()
+            }
         }
     }
 }
