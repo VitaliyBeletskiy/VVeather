@@ -3,4 +3,5 @@
 
     <string name="find_location">Find Location</string>
     <string name="locations">Locations</string>
+    <string name="cancel">Cancel</string>
 </resources>

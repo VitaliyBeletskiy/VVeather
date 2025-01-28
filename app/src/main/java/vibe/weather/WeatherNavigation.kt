@@ -1,11 +1,13 @@
 package vibe.weather
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import vibe.weather.ui.screens.home.HomeScreen
 import vibe.weather.ui.screens.locations.LocationsScreen
+import vibe.weather.ui.screens.locations.LocationsViewModel
 
 enum class AppScreens {
     HomeScreen,
@@ -21,9 +23,10 @@ fun WeatherNavigation() {
         }
 
         composable(AppScreens.LocationsScreen.name) {
-            LocationsScreen {
-                navController.popBackStack()
-            }
+            LocationsScreen(
+                viewModel = hiltViewModel<LocationsViewModel>(),
+                navigateBack = { navController.popBackStack() },
+            )
         }
     }
 }
