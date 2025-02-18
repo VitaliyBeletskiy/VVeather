@@ -1,9 +1,13 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     alias(libs.plugins.hilt)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -18,6 +22,19 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // region read API key from local.properties
+        val localProperties = Properties()
+        val localPropertiesFile = project.rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { input ->
+                localProperties.load(input)
+            }
+        }
+
+        val apiKey = project.findProperty("OPEN_WEATHER_API_KEY") ?: ""
+        buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$apiKey\"")
+        // endregion
     }
 
     buildTypes {
@@ -37,6 +54,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
@@ -65,6 +83,10 @@ dependencies {
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.content.negotiation)
+
+    // KotlinX Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

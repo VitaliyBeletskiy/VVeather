@@ -1,11 +1,16 @@
 package vibe.weather.utils
 
 import android.util.Log
+import vibe.weather.BuildConfig
 
 fun logD(message: String) {
-    Log.d("vitDebug", message)
+    if (BuildConfig.DEBUG) {
+        Log.d("vitDebug", message)
+    }
 }
 
 fun logE(message: String) {
-    Log.e("vitDebug", message)
+    if (BuildConfig.DEBUG) {
+        Log.e("vitDebug", message)
+    }
 }

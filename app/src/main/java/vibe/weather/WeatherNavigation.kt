@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import vibe.weather.ui.screens.home.HomeScreen
 import vibe.weather.ui.screens.locations.LocationsScreen
 import vibe.weather.ui.screens.locations.LocationsViewModel
+import vibe.weather.utils.logD
 
 enum class AppScreens {
     HomeScreen,
@@ -26,6 +27,10 @@ fun WeatherNavigation() {
             LocationsScreen(
                 viewModel = hiltViewModel<LocationsViewModel>(),
                 navigateBack = { navController.popBackStack() },
+                onLocationChosen = { location ->
+                    logD("Location chosen: $location")
+                    navController.popBackStack()
+                },
             )
         }
     }

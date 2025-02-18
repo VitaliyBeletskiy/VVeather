@@ -4,4 +4,7 @@
     <string name="find_location">Find Location</string>
     <string name="locations">Locations</string>
     <string name="cancel">Cancel</string>
+    <string name="no_map_app_found">No map app found</string>
+    <string name="no_location_found">No location found</string>
+    <string name="find_location_failed">Something went wrong. Try again later.</string>
 </resources>
